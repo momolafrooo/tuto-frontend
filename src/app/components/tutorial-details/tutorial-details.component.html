@@ -1,0 +1,74 @@
+@if (viewMode){ @if (currentTutorial.id){
+<h4>Tutorial</h4>
+<div>
+  <label><strong>Titre:</strong></label> {{ currentTutorial.title }}
+</div>
+<div>
+  <label><strong>Description:</strong></label>
+  {{ currentTutorial.description }}
+</div>
+<div>
+  <label><strong>Status:</strong></label>
+  {{ currentTutorial.published ? "Publié" : "En attente" }}
+</div>
+
+<a class="badge badge-warning" routerLink="/tutorials/{{ currentTutorial.id }}">
+  Edit
+</a>
+} @else { } } @else { @if (currentTutorial.id) {
+<div class="edit-form">
+  <h4>Tutorial</h4>
+  <form>
+    <div class="form-group">
+      <label for="title">Titre</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        [(ngModel)]="currentTutorial.title"
+        name="title"
+      />
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        [(ngModel)]="currentTutorial.description"
+        name="description"
+      />
+    </div>
+
+    <div class="form-group">
+      <label><strong>Status:</strong></label>
+      {{ currentTutorial.published ? "Publié" : "En attente" }}
+    </div>
+  </form>
+
+  @if (currentTutorial.published) {
+  <button class="badge badge-primary mr-2" (click)="updatePublished(false)">
+    Mettre en attente
+  </button>
+  } @else {
+  <button class="badge badge-primary mr-2" (click)="updatePublished(true)">
+    Publier
+  </button>
+  }
+
+  <button class="badge badge-danger mr-2" (click)="deleteTutorial()">
+    Supprimer
+  </button>
+
+  <button
+    type="submit"
+    class="badge badge-success mb-2"
+    (click)="updateTutorial()"
+  >
+    Modifier
+  </button>
+  <p>{{ message }}</p>
+</div>
+} @else {
+<p>Impossible de charger ce tutorial...</p>
+} }
